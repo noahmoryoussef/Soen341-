@@ -3,7 +3,7 @@ First sprint Soen 341
 
 # Project Description
 
-We are a group of four enginnering students composed of three computer enginners and one software enginnering. We will be implementing a simplified version of the Instagram application. This will incude features: posting a picture (text description availible), following a user and leave comments to a posted posted picture. Additonal extra features will be included such as like, sharing posts and direct messaging between users.
+We are a group of four enginnering students composed of three computer enginners and one software enginnering. We will be implementing a simplified version of the Instagram application. This will incude features: posting a picture (text description availible), following a user and leave comments to a posted posted picture. Additonal extra features will be included such as like, sharing posts, direct messaging between users, and giving user accounts an option to be private or public.
 
 # Group Members 
 
