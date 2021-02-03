@@ -8,7 +8,7 @@ We are a group of four enginnering students composed of three computer enginners
 # Group Members 
 
 - Serge Nassour	40052244 (sergenassour)
-- Theodore Ku	40067122 (Github name)
+- Theodore Ku	40067122 (Shinkirou2)
 - Adam Vlna	40081413 (vlnarability)
 - Noah Moryoussef	40097254 (noahmoryoussef)
 
