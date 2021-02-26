@@ -19,7 +19,7 @@ function ImageUpload({ username }) {
     const uploadTask = storage.ref(`images/${image.name}`).put(image);
     uploadTask.on(
       "state_changed",
-      ((snapshot) => {
+      (snapshot) => {
         //Progress Bar
         const progress = Math.round(
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
@@ -43,13 +43,13 @@ function ImageUpload({ username }) {
               timestamp: firebase.firestore.FieldValue.serverTimestamp(),
               caption: caption,
               imageUrl: url,
-              username: username,
-            });
+              username: username
+            })
             setProgress(0);
             setCaption("");
             setImage(null);
           });
-      })
+      }
     );
   };
 

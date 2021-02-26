@@ -3,6 +3,8 @@
   max-width: 500px;
   border: 1px solid lightgray;
   margin-bottom: 45px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .Post__image {
@@ -28,6 +30,13 @@
 
 .Post__commentSection{
   padding: 20px;
+  border-bottom: 1px solid lightgray;
+  border-top: 1px solid lightgray;
+}
+
+.Post__timestamp{
+  color: gray;
+  font-size: 0.9em;
 }
 
 .Post__commentBox{

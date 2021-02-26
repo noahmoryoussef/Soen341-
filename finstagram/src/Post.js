@@ -42,10 +42,14 @@ function Post({ postId, user, username, caption, imageUrl }) {
       <div className="Post__header">
         <Avatar
           className="Post__avatar"
-          alt="Adam"
+          alt=""
           src="/static/images/avatar/1.png"
         />
-        <h3>{username}</h3>
+        <p>
+          <h3>{username}</h3>
+          {/* Get timestamp of each post*/}
+          <span className="Post__timestamp"> Some Time Ago</span>
+        </p>
       </div>
       {/* image */}
       <img className="Post__image" src={imageUrl} alt="Post Image" />
@@ -57,8 +61,8 @@ function Post({ postId, user, username, caption, imageUrl }) {
       <div className="Post__commentSection">
         {comments.map((comment) => (
           <p>
-            <strong>{comment.username}</strong>
-            {comment.text}
+            {/* Get timestamp of each comment*/}
+            <strong>{comment.username}</strong> {comment.text} <br /> <span className="Post__timestamp"> Some Time Ago</span> 
           </p>
         ))}
       </div>
