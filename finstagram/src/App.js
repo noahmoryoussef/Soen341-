@@ -186,6 +186,10 @@ function App() {
       {posts.map(({ id, post }) => (
         <Post
           key={id}
+          postId={id}
+          //Current User
+          user={user}
+          //Username of Poster
           username={post.username}
           caption={post.caption}
           imageUrl={post.imageUrl}
