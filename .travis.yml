@@ -1,8 +1,10 @@
 language: node_js
+node_js:
+  - "6"
 before_install:
-- cd finstagram
+  - cd finstagram
 before_script:
-- npm install
+  - npm install
 script:
- - npm start
+  - npm start
  
