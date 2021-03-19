@@ -3,6 +3,8 @@ import "./Post.css";
 import { db } from "./firebase";
 import Avatar from "@material-ui/core/Avatar";
 import firebase from "firebase"
+import Followers from "./Followers.js";
+import "./Followers.css";
 
 function Post({ postId, user, username, caption, imageUrl }) {
   const [comments, setComments] = useState([]);
@@ -37,7 +39,7 @@ function Post({ postId, user, username, caption, imageUrl }) {
   };
 
   return (
-    <div className="Post">
+	<div className="Post">
       {/* header w/ avatar and Username*/}
       <div className="Post__header">
         <Avatar
@@ -66,6 +68,13 @@ function Post({ postId, user, username, caption, imageUrl }) {
           </p>
         ))}
       </div>
+	  {/* Following Button */}
+      <Followers 
+          //Current User
+          user={user}
+          //Username of Poster
+          username={username}
+      />
       {/* Comment Box */}
       <form className="Post__commentBox">
         <input
