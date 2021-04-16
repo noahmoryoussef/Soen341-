@@ -45,7 +45,6 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         //User has logged in
-        console.log(authUser);
         setUser(authUser);
       } else {
         //User has logged out
@@ -60,15 +59,27 @@ function App() {
   }, [user, username]);
 
   useEffect(() => {
-    db.collection("posts").orderBy("timestamp", "desc").onSnapshot((snapshot) => {
-      setPosts(
-        snapshot.docs.map((doc) => ({
-          id: doc.id,
-          post: doc.data(),
-        }))
-      );
-    });
+    getPosts();
+
+    const interval = setInterval(() => {
+      getPosts();
+    }, 10000);
+
+    return () => clearInterval(interval);
   }, []);
+
+  const getPosts = () => {
+    db.collection("posts")
+      .orderBy("timestamp", "desc")
+      .onSnapshot((snapshot) => {
+        setPosts(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            post: doc.data(),
+          }))
+        );
+      });
+  };
 
   const signUp = (event) => {
     event.preventDefault();
@@ -96,11 +107,11 @@ function App() {
   return (
     <div className="App">
       {user?.displayName ? (
-        <ImageUpload username={user.displayName}/>
-      ):(
-      <h3>Only signed in users may upload</h3>
+        <ImageUpload username={user.displayName} />
+      ) : (
+        <h3>Only signed in users may upload</h3>
       )}
-      
+
       <Modal open={open} onClose={() => setOpen(false)}>
         <div style={modalStyle} className={classes.paper}>
           <form className="App__signup">
@@ -175,7 +186,14 @@ function App() {
         ></img>
       </div>
       {user ? (
-        <Button onClick={() => auth.signOut()}>Sign Out</Button>
+        <Button
+          onClick={() => {
+            auth.signOut();
+            window.location.reload(false);
+          }}
+        >
+          Sign Out
+        </Button>
       ) : (
         <div className="App__loginContainer">
           <Button onClick={() => setOpenSignIn(true)}>Sign In</Button>

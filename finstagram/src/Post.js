@@ -2,20 +2,21 @@ import React, { useState, useEffect } from "react";
 import "./Post.css";
 import { db } from "./firebase";
 import Avatar from "@material-ui/core/Avatar";
-import firebase from "firebase"
+import firebase from "firebase";
 import Followers from "./Followers.js";
+import Like from "./Like.js";
 import "./Followers.css";
 
 function Post({ postId, user, username, caption, imageUrl }) {
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState([]);
 
+  const postRef = db.collection("posts").doc(postId);
+
   useEffect(() => {
     let unsubscribe;
     if (postId) {
-      unsubscribe = db
-        .collection("posts")
-        .doc(postId)
+      unsubscribe = postRef
         .collection("comments")
         .orderBy("timestamp", "desc")
         .onSnapshot((snapshot) => {
@@ -30,16 +31,16 @@ function Post({ postId, user, username, caption, imageUrl }) {
 
   const postComment = (event) => {
     event.preventDefault();
-    db.collection("posts").doc(postId).collection("comments").add({
+    postRef.collection("comments").add({
       text: comment,
       username: user.displayName,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
     setComment("");
   };
 
   return (
-	<div className="Post">
+    <div className="Post">
       {/* header w/ avatar and Username*/}
       <div className="Post__header">
         <Avatar
@@ -48,7 +49,7 @@ function Post({ postId, user, username, caption, imageUrl }) {
           src="/static/images/avatar/1.png"
         />
         <p>
-          <h3>{username}</h3>
+          <strong>{username}</strong>
           {/* Get timestamp of each post*/}
           <span className="Post__timestamp"> Some Time Ago</span>
         </p>
@@ -59,21 +60,25 @@ function Post({ postId, user, username, caption, imageUrl }) {
       <h4 className="Post__text">
         <strong>{username}</strong> {caption}
       </h4>
+      {/* Like Button */}
+      <Like postId={postId} user={user} />
+
       {/* Comment Section */}
       <div className="Post__commentSection">
         {comments.map((comment) => (
           <p>
             {/* Get timestamp of each comment*/}
-            <strong>{comment.username}</strong> {comment.text} <br /> <span className="Post__timestamp"> Some Time Ago</span> 
+            <strong>{comment.username}</strong> {comment.text} <br />{" "}
+            <span className="Post__timestamp"> Some Time Ago</span>
           </p>
         ))}
       </div>
-	  {/* Following Button */}
-      <Followers 
-          //Current User
-          user={user}
-          //Username of Poster
-          username={username}
+      {/* Following Button */}
+      <Followers
+        //Current User
+        user={user}
+        //Username of Poster
+        username={username}
       />
       {/* Comment Box */}
       <form className="Post__commentBox">
